@@ -1,0 +1,7 @@
+---
+- name: Create a new bashrc for user
+  template:
+    src: bashrc.j2
+    dest: "{{ bashrc_users_file[item] }}"
+    mode: '0640'
+  with_items: "{{ bashrc_users_configure }}"
