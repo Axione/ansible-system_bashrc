@@ -46,21 +46,18 @@ molecule:
     - molecule test
 
 
-#changelog:
-#  stage: test
-#  image: ruby:latest
-#  before_script:
-#    - gem install github_changelog_generator
-#  script:
-#    - github_changelog_generator -u lotusnoir -p ansible-system_bashrc
-
+######################################################
+# GENERATE CHANGELOG FILE
+######################################################
 changelog:
   stage: changes
   image: node:latest
   needs:
     - molecule
   artifacts:
-    untracked: true
+    paths:
+      - CHANGELOG.md
+    expire_in: 1 day
   before_script:
     - npm install -g auto-changelog
   script:
@@ -73,7 +70,7 @@ changelog:
 push_src_on_github:
   stage: push
   image: alpine:latest
-  dependencies:
+  needs:
     - changelog
   before_script:
     - apk add git openssh-client
@@ -93,4 +90,4 @@ push_src_on_github:
     - cd /tmp/ansible-system_bashrc
     - git add -A
     - git commit -m "${COMMENT}" || echo "No changes, nothing to commit!"
-    - git push
+    - git push --follow-tags
