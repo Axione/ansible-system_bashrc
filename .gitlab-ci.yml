@@ -45,9 +45,18 @@ molecule:
     - molecule test
 
 
-##################################################
-# PUSH CODE WHEN ALL TEST OK
-##################################################
+changelog:
+  stage: test
+  image: ruby:latest
+  before_script:
+    - gem install github_changelog_generator
+  script:
+    - github_changelog_generator -u lotusnoir -p ansible-system_bashrc
+
+
+###################################################
+## PUSH CODE WHEN ALL TEST OK
+###################################################
 push_src_on_github:
   stage: push
   image: alpine:latest
