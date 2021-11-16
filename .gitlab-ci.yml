@@ -61,7 +61,7 @@ changelog:
   before_script:
     - npm install -g auto-changelog
   script:
-    - auto-changelog -t keepachangelog --sort-commits date-desc --hide-empty-releases --hide-credit -l 10 -b 10 -u
+    - auto-changelog -t keepachangelog --sort-commits date-desc --hide-empty-releases --hide-credit -l 10 -b 10
 
 
 ###################################################
