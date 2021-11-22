@@ -10,7 +10,7 @@ bashrc_users_file:
 bashrc_config:
   root: |
     ### Prompt
-    PS1="\[\e[0;37m\][\A]\[\e[0;m\]\[\e[0;31m\]\u\[\e[0;m\]\[\e[0;33m\]@\h\[\e[0;m\]:\[\e[1;36m\]\w\[\e[0;m\]\[\e[1;31m\]\\$\[\e[0;m\]"
+    PS1="\[\e[0;37m\][\A]\[\e[0;m\]\[\e[0;31m\]\u\[\e[0;m\]\[\e[0;33m\]@\h\[\e[0;m\]:\[\e[1;36m\]\w\[\e[0;m\]\[\e[1;31m\]\\$\[\e[0;m\] "
 
     ### History
     export HISTTIMEFORMAT="%F-%T "
