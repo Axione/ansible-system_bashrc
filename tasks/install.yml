@@ -1,6 +1,6 @@
 ---
 - name: Create a new bashrc for user
-  template:
+  ansible.builtin.template:
     src: bashrc.j2
     dest: "{{ bashrc_users_file[item] }}"
     mode: '0640'
