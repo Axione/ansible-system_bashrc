@@ -25,6 +25,11 @@ bashrc_config:
     eval "`dircolors`"
 
     ### Alias
+    alias egrep='egrep $LS_OPTIONS'
+    alias fgrep='fgrep $LS_OPTIONS'
+    alias grep='grep $LS_OPTIONS'
+    alias vi='vim'
+    alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
     alias ls='ls $LS_OPTIONS'
     alias ll='ls $LS_OPTIONS -l'
     alias la='ls $LS_OPTIONS -lA'
