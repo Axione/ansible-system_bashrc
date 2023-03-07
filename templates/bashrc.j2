@@ -1,3 +1,7 @@
+{% if bashrc_users_configure is defined and bashrc_users_configure | length > 0 %}
 {% for user in bashrc_users_configure %}
+{% if bashrc_config[user] is defined and bashrc_config[user] | length > 0 %}
   {{ bashrc_config[user] }}
+{% endif %}
 {% endfor %}
+{% endif %}

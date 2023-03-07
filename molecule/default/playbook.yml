@@ -6,3 +6,7 @@
 
   roles:
     - role: ansible-system_bashrc
+
+  vars:
+    bashrc_users_configure:
+      - root

@@ -19,6 +19,8 @@ none
 
 See [variables](/defaults/main.yml) for more details.
 
+With default variables, this role assume it doesnt change anything on the system. You need to set the config variables like in the exemple in order to start configuration.
+
 ## Examples
 
         ---
@@ -28,6 +30,12 @@ See [variables](/defaults/main.yml) for more details.
           gather_facts: true
           roles:
             - role: ansible-system_bashrc
+          vars:
+            bashrc_users_configure:
+              - root
+            bashrc_users_file:
+              root: "/root/.bashrc"
+
 
 
 ## License
