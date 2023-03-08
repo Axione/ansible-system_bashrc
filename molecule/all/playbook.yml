@@ -1,0 +1,12 @@
+---
+- name: Run role
+  hosts: all
+  become: true
+  any_errors_fatal: true
+
+  roles:
+    - role: ansible-system_bashrc
+
+  vars:
+    bashrc_users_configure:
+      - root
