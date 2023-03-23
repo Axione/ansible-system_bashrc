@@ -1,13 +1,13 @@
 # ansible-system_bashrc
 
-## Description
-
 [![Galaxy Role](https://img.shields.io/badge/galaxy-system_bashrc-purple?style=flat)](https://galaxy.ansible.com/lotusnoir/system_bashrc)
 [![Version](https://img.shields.io/github/release/lotusnoir/ansible-system_bashrc.svg)](https://github.com/lotusnoir/ansible-system_bashrc/releases/latest)
 [![GitHub repo size](https://img.shields.io/github/repo-size/lotusnoir/ansible-system_bashrc?color=orange&style=flat)](https://galaxy.ansible.com/lotusnoir/system_bashrc)
 [![downloads](https://img.shields.io/ansible/role/d/56927)](https://galaxy.ansible.com/lotusnoir/system_bashrc)
 [![Ansible Quality Score](https://img.shields.io/ansible/quality/56927)](https://galaxy.ansible.com/lotusnoir/system_bashrc)
 [![License](https://img.shields.io/badge/license-Apache--2.0-brightgreen?style=flat)](https://opensource.org/licenses/Apache-2.0)
+
+## Description
 
 Configure system bashrc
 ## Requirements
