@@ -4,11 +4,11 @@
   become: true
   any_errors_fatal: true
 
+  vars:
+    bashrc_users_configure:
+      - root
+
   tasks:
     - name: Include role
       ansible.builtin.include_role:
         name: ansible-system_bashrc
-
-  vars:
-    bashrc_users_configure:
-      - root
