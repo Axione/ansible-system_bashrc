@@ -42,10 +42,10 @@ With default variables, this role assume it doesnt change anything on the system
           roles:
             - role: ansible-system_bashrc
           vars:
+            bashrc_configure_skel: true
             bashrc_users_configure:
               - root
-            bashrc_users_file:
-              root: "/root/.bashrc"
+              - test
 
 
 

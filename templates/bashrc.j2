@@ -1,7 +1,17 @@
-{% if bashrc_users_configure is defined and bashrc_users_configure | length > 0 %}
-{% for user in bashrc_users_configure %}
-{% if bashrc_config[user] is defined and bashrc_config[user] | length > 0 %}
-  {{ bashrc_config[user] }}
+{{ ansible_managed | comment }}
+
+{% if bashrc_config["common"] is defined and bashrc_config["common"] | length > 0 %}
+  {{ bashrc_config["common"] }}
 {% endif %}
-{% endfor %}
+
+{% if item is defined %}
+{% if bashrc_config[item] is defined and bashrc_config[item] | length > 0 %}
+  {{ bashrc_config[item] }}
+{% else %}
+### Prompt
+PS1="\[\e[0;37m\][\A]\[\e[0;m\]\[\e[0;32m\]\u\[\e[0;m\]\[\e[0;32m\]@\h\[\e[0;m\]:\[\e[1;36m\]\w\[\e[0;m\]\[\e[1;31m\]\\$\[\e[0;m\] "
+{% endif %}
+{% else %}
+### Prompt
+PS1="\[\e[0;37m\][\A]\[\e[0;m\]\[\e[0;32m\]\u\[\e[0;m\]\[\e[0;32m\]@\h\[\e[0;m\]:\[\e[1;36m\]\w\[\e[0;m\]\[\e[1;31m\]\\$\[\e[0;m\] "
 {% endif %}

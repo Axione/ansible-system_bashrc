@@ -1,126 +1,74 @@
 ---
-### specify the list of users to customize the bashrc, all install in /etc/profile.d/bashrc
-#bashrc_users_configure:
+### Configure for all new home created
+bashrc_configure_skel: false
+bashrc_skel_file: "/etc/skel/.bashrc"
+
+### Customize the bashrc for a list of user
+bashrc_users_configure: []
 #  - root
-#  - titi
-bashrc_users_file:
-  root: "/root/.bashrc"
-  titi: "/home/titi/.bashrc"
-  all: "/etc/profile.d/bashrc"
+
+# List bashrc default file for each user configured in bashrc_users_configure
+# default for each user is /home/$user
+bashrc_users_default_home: "/home"
+bashrc_users_home:
+  root: "/root"
+
 bashrc_config:
+  common: |
+    ### History
+    export HISTTIMEFORMAT="%F-%T "
+    export HISTSIZE=10000
+    PROMPT_COMMAND='history -a'
+    HISTCONTROL=ignoreboth
+    export HISTIGNORE="ls:ps:history:htop"
+    shopt -s histappend
+
+    ### Coloration
+    export LS_OPTIONS='--color=auto'
+    eval "`dircolors`"
+
+    ### Alias
+    alias egrep='egrep $LS_OPTIONS'
+    alias fgrep='fgrep $LS_OPTIONS'
+    alias grep='grep $LS_OPTIONS'
+    alias vi='vim'
+    alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
+    alias ls='ls $LS_OPTIONS'
+    alias ll='ls $LS_OPTIONS -l'
+    alias la='ls $LS_OPTIONS -lA'
+    alias ri='grep -ri --exclude-dir=".git" --color=auto'
+    alias tailf='tail -f'
+
+    ### Functions
+    function extract () {
+       if [ -f $1 ] ; then
+           case $1 in
+               *.tar.bz2)   tar xvjf $1    ;;
+               *.tar.gz)    tar xvzf $1    ;;
+               *.bz2)       bunzip2 $1     ;;
+               *.rar)       unrar x $1       ;;
+               *.gz)        gunzip $1      ;;
+               *.tar)       tar xvf $1     ;;
+               *.tbz2)      tar xvjf $1    ;;
+               *.tgz)       tar xvzf $1    ;;
+               *.zip)       unzip $1       ;;
+               *.Z)         uncompress $1  ;;
+               *.7z)        7z x $1        ;;
+               *)           echo "don't know how to extract '$1'..." ;;
+           esac
+       else
+           echo "'$1' is not a valid file!"
+       fi
+    }
+
+    function repeat() {
+        local times="$1";
+        shift;
+        local cmd="$@";
+        for ((i = 1; i <= $times; i++ )); do
+           eval "$cmd";
+        done
+    }
   root: |
     ### Prompt
     PS1="\[\e[0;37m\][\A]\[\e[0;m\]\[\e[0;31m\]\u\[\e[0;m\]\[\e[0;33m\]@\h\[\e[0;m\]:\[\e[1;36m\]\w\[\e[0;m\]\[\e[1;31m\]\\$\[\e[0;m\] "
-
-    ### History
-    export HISTTIMEFORMAT="%F-%T "
-    export HISTSIZE=10000
-    PROMPT_COMMAND='history -a'
-    HISTCONTROL=ignoreboth
-    export HISTIGNORE="ls:ps:history:htop"
-    shopt -s histappend
-
-    ### Coloration
-    export LS_OPTIONS='--color=auto'
-    eval "`dircolors`"
-
-    ### Alias
-    alias egrep='egrep $LS_OPTIONS'
-    alias fgrep='fgrep $LS_OPTIONS'
-    alias grep='grep $LS_OPTIONS'
-    alias vi='vim'
-    alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
-    alias ls='ls $LS_OPTIONS'
-    alias ll='ls $LS_OPTIONS -l'
-    alias la='ls $LS_OPTIONS -lA'
-    alias ri='grep -ri --exclude-dir=".git" --color=auto'
-    alias tailf='tail -f'
-
-    ### Functions
-    function extract () {
-       if [ -f $1 ] ; then
-           case $1 in
-               *.tar.bz2)   tar xvjf $1    ;;
-               *.tar.gz)    tar xvzf $1    ;;
-               *.bz2)       bunzip2 $1     ;;
-               *.rar)       unrar x $1       ;;
-               *.gz)        gunzip $1      ;;
-               *.tar)       tar xvf $1     ;;
-               *.tbz2)      tar xvjf $1    ;;
-               *.tgz)       tar xvzf $1    ;;
-               *.zip)       unzip $1       ;;
-               *.Z)         uncompress $1  ;;
-               *.7z)        7z x $1        ;;
-               *)           echo "don't know how to extract '$1'..." ;;
-           esac
-       else
-           echo "'$1' is not a valid file!"
-       fi
-    }
-
-    function repeat() {
-        local times="$1";
-        shift;
-        local cmd="$@";
-        for ((i = 1; i <= $times; i++ )); do
-           eval "$cmd";
-        done
-    }
-  all: |
-    ### Prompt
-    PS1="\[\e[0;37m\][\A]\[\e[0;m\]\[\e[0;31m\]\u\[\e[0;m\]\[\e[0;33m\]@\h\[\e[0;m\]:\[\e[1;36m\]\w\[\e[0;m\]\[\e[1;31m\]\\$\[\e[0;m\] "
-
-    ### History
-    export HISTTIMEFORMAT="%F-%T "
-    export HISTSIZE=10000
-    PROMPT_COMMAND='history -a'
-    HISTCONTROL=ignoreboth
-    export HISTIGNORE="ls:ps:history:htop"
-    shopt -s histappend
-
-    ### Coloration
-    export LS_OPTIONS='--color=auto'
-    eval "`dircolors`"
-
-    ### Alias
-    alias egrep='egrep $LS_OPTIONS'
-    alias fgrep='fgrep $LS_OPTIONS'
-    alias grep='grep $LS_OPTIONS'
-    alias vi='vim'
-    alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
-    alias ls='ls $LS_OPTIONS'
-    alias ll='ls $LS_OPTIONS -l'
-    alias la='ls $LS_OPTIONS -lA'
-    alias ri='grep -ri --exclude-dir=".git" --color=auto'
-    alias tailf='tail -f'
-
-    ### Functions
-    function extract () {
-       if [ -f $1 ] ; then
-           case $1 in
-               *.tar.bz2)   tar xvjf $1    ;;
-               *.tar.gz)    tar xvzf $1    ;;
-               *.bz2)       bunzip2 $1     ;;
-               *.rar)       unrar x $1       ;;
-               *.gz)        gunzip $1      ;;
-               *.tar)       tar xvf $1     ;;
-               *.tbz2)      tar xvjf $1    ;;
-               *.tgz)       tar xvzf $1    ;;
-               *.zip)       unzip $1       ;;
-               *.Z)         uncompress $1  ;;
-               *.7z)        7z x $1        ;;
-               *)           echo "don't know how to extract '$1'..." ;;
-           esac
-       else
-           echo "'$1' is not a valid file!"
-       fi
-    }
-
-    function repeat() {
-        local times="$1";
-        shift;
-        local cmd="$@";
-        for ((i = 1; i <= $times; i++ )); do
-           eval "$cmd";
-        done
-    }
