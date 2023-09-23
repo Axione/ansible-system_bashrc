@@ -10,7 +10,7 @@
 - name: "Create a new bashrc for user"
   ansible.builtin.template:
     src: bashrc.j2
-    dest: "{{ bashrc_users_home[item] | default(bashrc_users_default_home + '/' + item) }}/.bashrc"
+    dest: "{% if item == 'root' %}/root{% else %}{{ bashrc_users_home[item] | default(bashrc_users_default_home + '/' + item) }}{% endif %}/.bashrc"
     mode: '0640'
   with_items: "{{ bashrc_users_configure }}"
   when:
