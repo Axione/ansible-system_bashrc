@@ -21,7 +21,10 @@
 
 ## Description
 
-Configure system bashrc
+Configure bashrc for any users
+
+This role is designed to be able to set custom bahrc for all users or a specific one. You can use the default one provided or write your own. This role will try to add new features and aliases in order to have the best base for any users.
+
 ## Requirements
 
 none
@@ -30,9 +33,12 @@ none
 
 See [variables](/defaults/main.yml) for more details.
 
-With default variables, this role assume it doesnt change anything on the system. You need to set the config variables like in the exemple in order to start configuration.
+With default variables, this role doesnt change anything on the system. You need to set the config variables like in the exemples in order to start configuration.
 
 ## Examples
+
+You can change just the bashrc for the new users and skip the default one provided by this role like this
+
 
         ---
         - hosts: system_bashrc
@@ -43,9 +49,31 @@ With default variables, this role assume it doesnt change anything on the system
             - role: ansible-system_bashrc
           vars:
             bashrc_configure_skel: true
+            bashrc_skel_config: |
+              [...]
+
+Configure the default bahrc for root with a custom ps1 and an empty bashrc for test user
+
+
+        ---
+        - hosts: system_bashrc
+          become: true
+          become_method: sudo
+          gather_facts: true
+          roles:
+            - role: ansible-system_bashrc
+          vars:
             bashrc_users_configure:
               - root
               - test
+            bashrc_users_config:
+              root:
+                config: |
+                  PS1="\[\e[0;37m\][\A]\[\e[0;m\]\[\e[0;31m\]\u\[\e[0;m\]\[\e[0;33m\]@\h\[\e[0; m\]:\[\e[1;36m\]\w\[\e[0;m\]\[\e[1;31m\]\\$\[\e[0;m\] "
+              test:
+                default: false
+                config: |
+                  PS1="\[\e[0;37m\][\A]\[\e[0;m\]\[\e[0;32m\]\u\[\e[0;m\]\[\e[0;32m\]@\h\[\e[0; m\]:\[\e[1;36m\]\w\[\e[0;m\]\[\e[1;31m\]\\$\[\e[0;m\] "
 
 
 
