@@ -5,7 +5,7 @@
 ### Configure for all new home created
 bashrc_configure_skel: false
 bashrc_skel_file: "/etc/skel/.bashrc"
-bashrc_skel_config: "" #default config when empty
+bashrc_skel_config: ""
 
 ##########################
 ### USERS
